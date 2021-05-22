@@ -1,0 +1,176 @@
+@import "../../../assets/variables";
+@import "../../../assets/dadata";
+
+.ad-page {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+
+  &__list {
+    width: 700px;
+    padding: 24px 32px;
+    background-color: #fff;
+    border-radius: 0 2rem 2rem 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  &__btns {
+    margin: 8px 0 22px;
+    font-weight: 500;
+    font-size: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__btn {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    border-radius: 20px;
+    background: #fff;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100px;
+
+    &:hover {
+      background: $main-secondary;
+    }
+  }
+
+  &__text {
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__view {
+    width: calc(100vw - 700px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 2rem 0 0 0;
+  }
+  &__header-view-container {
+    display: flex;
+    flex-direction: column;
+  }
+  &__header {
+    width: calc(100vw - 700px);
+    padding: 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__add-button {
+    background: $main;
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    color: #fff;
+    border-radius: 15px;
+    transition: box-shadow 0.2s ease-out;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+  }
+  &__filter-list {
+    height: 85%;
+  }
+  &__name-filter {
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    margin-bottom: 20px;
+    &-input {
+      width: 100%;
+      height: 100%;
+      font-size: 20px;
+      background: $main-secondary;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 15px;
+      color: $main;
+      margin-bottom: 20px;
+      &::placeholder {
+        color: #aed4ea;
+      }
+    }
+    &-btn {
+      background: $main;
+      height: 48px;
+      width: 64px;
+      margin-left: 20px;
+      border: none;
+      color: #fff;
+      border-radius: 15px;
+      transition: box-shadow 0.2s ease-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+    }
+  }
+  &__filter {
+    position: absolute;
+    z-index: 10;
+  }
+
+  &__svg-icon {
+    z-index: 10;
+    margin: 0 5px;
+  }
+  &__img {
+    border-radius: 100px;
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    image-rendering: optimizeQuality;
+    margin-left: 10px;
+  }
+  &__profile-buttons-container {
+    position: absolute;
+    top: 80px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: rgb(0 0 0 / 5%) 0px 0px 0px 1px;
+    z-index: 3;
+  }
+  &__profile-button {
+    padding: 10px 40px;
+    font-weight: 500;
+    border-radius: 16px;
+    text-align: center;
+  }
+  &__title-my-ads {
+    font-weight: 700;
+    font-size: 36px;
+    color: $main;
+  }
+  &__title-back {
+    font-weight: 500;
+    color: $main;
+    padding: 20px 0 50px 0;
+  }
+}
+.dadata {
+  ::ng-deep {
+    .search {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      background: #ffffff;
+    }
+  }
+}

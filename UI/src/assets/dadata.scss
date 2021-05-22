@@ -1,0 +1,32 @@
+.dadata ::ng-deep {
+  .search {
+    width: 552px;
+    height: 64px;
+    font-size: 24px;
+    background: $main-secondary;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 15px;
+    color: $main;
+  }
+
+  .autocomplete-items {
+    border: none !important;
+
+    .autocomplele-item {
+      border-bottom: none !important;
+      margin-top: -1px;
+      font-size: 18px;
+      background: #fff !important;
+      padding: 0.5rem 2rem !important;
+      color: $main;
+
+      &:hover {
+        background: $main-secondary !important;
+      }
+    }
+    .active {
+      background: $main !important;
+    }
+  }
+}

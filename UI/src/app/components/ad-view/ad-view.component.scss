@@ -1,0 +1,326 @@
+@import "../../../assets/variables";
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  &__svg-icon {
+    margin-left: 10px;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 700px);
+    padding: 0 36px;
+  }
+  &__galleria-min-photo {
+    height: 120px;
+    width: 160px;
+    object-fit: cover;
+    padding: 10px;
+    image-rendering: optimizeQuality;
+  }
+  &__galleria-max-photo {
+    height: 700px;
+    width: 900px;
+    object-fit: cover;
+    image-rendering: optimizeQuality;
+  }
+
+  &-title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &-block {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 10px;
+    }
+
+    &__name {
+      font-weight: 700;
+      font-size: 36px;
+      color: $main;
+    }
+    &__name-input {
+      font-weight: 700;
+      font-size: 36px;
+      color: $main;
+      border: none;
+      border-radius: 15px;
+      box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 10px;
+    }
+    &__container {
+      display: flex;
+      align-items: center;
+    }
+
+    &__address {
+      margin: 16px 0 16px 0;
+      color: $text-secondary;
+    }
+    &__admin-comment {
+      background: #ffddaa;
+      padding: 15px 20px;
+      border-radius: 15px;
+      font-weight: 400;
+      font-size: 14px;
+      color: #726969;
+      min-width: 300px;
+      word-break: break-word;
+      &-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: #000000;
+        margin: 0 0 5px 0;
+      }
+    }
+  }
+
+  &-photo {
+    width: 100%;
+    height: 500px;
+    display: flex;
+
+    * {
+      background-size: cover;
+      background-position: center center;
+      flex: 1 0 0;
+    }
+
+    &__default {
+      border-radius: 50px;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 100;
+      font-size: 60px;
+      color: #726969;
+    }
+
+    &__first {
+      margin-right: 10px;
+      border-radius: 50px 0 0 50px;
+    }
+    &__first-only {
+      border-radius: 50px;
+      margin-right: 0px;
+    }
+
+    &__second-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__second {
+      margin-top: 10px;
+      border-radius: 0 0 50px 0;
+    }
+    &__second-only {
+      border-radius: 0 50px 50px 0;
+    }
+
+    &__third-block {
+      display: flex;
+    }
+
+    &__third {
+      margin-right: 10px;
+    }
+    &__third-only {
+      border-radius: 0 50px 0 0;
+    }
+
+    &__fourth {
+      border-radius: 0 50px 0 0;
+    }
+    &__dropzone {
+      margin-top: 30px;
+    }
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &-price-contacts {
+    &__container {
+      width: 100%;
+      height: 136px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__price {
+      height: 42px;
+      padding: 20px;
+      background: $accent-color;
+      font-weight: 500;
+      margin: 16px 0 16px 0;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30px;
+    }
+    &__price-input {
+      margin: 16px 0 16px 0;
+      background: $accent-color;
+      border: none;
+      font-weight: 500;
+      font-size: 18px;
+      border-radius: 15px;
+      box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 10px;
+    }
+    &-contacts {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      &__contacts {
+        padding: 20px;
+        height: 84px;
+        background: $main-secondary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        border-radius: 32px;
+        color: $text;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        margin-right: 10px;
+      }
+      &__photo {
+        background: $main-secondary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        border-radius: 60px;
+        margin-right: 10px;
+        height: 74px;
+        width: 74px;
+        &-img {
+          border-radius: 60px;
+          height: 74px;
+          width: 74px;
+          object-fit: cover;
+          image-rendering: optimizeQuality;
+        }
+        &-svg {
+        }
+      }
+      &__name {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      &__number {
+        font-weight: 500;
+        font-size: 24px;
+        color: $main;
+      }
+      &__call-button {
+        background: $main-secondary;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        border-radius: 60px;
+        width: 74px;
+        height: 74px;
+        padding: 20px;
+      }
+      &__call-button-svg {
+        fill: $main;
+      }
+    }
+  }
+  &-text {
+    width: 80%;
+    &__text {
+      font-weight: 400;
+      margin: 16px 0 16px 0;
+      font-size: 18px;
+      color: $text-secondary;
+    }
+    &__text-input {
+      width: 80%;
+      height: 400px;
+      margin: 16px 0 16px 0;
+      border: none;
+      font-weight: 400;
+      font-size: 18px;
+      color: $text-secondary;
+      border-radius: 15px;
+      box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 10px;
+      resize: none;
+    }
+  }
+  &__comments {
+    margin: 16px 0 16px 0;
+
+    &-title {
+      margin: 16px 0 16px 0;
+      color: $text-secondary;
+    }
+  }
+}
+.dadata {
+  ::ng-deep {
+    .search {
+      margin: 16px 0 16px 0;
+      color: $text-secondary;
+      background: #ffffff;
+      border: none;
+      border-radius: 15px;
+      box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 10px;
+    }
+    .autocomplete-items {
+      border: none !important;
+
+      .autocomplele-item {
+        border-bottom: none !important;
+        margin-top: -1px;
+        background: #fff !important;
+        padding: 0.5rem 2rem !important;
+        color: $text-secondary;
+
+        &:hover {
+          background: $main-secondary !important;
+        }
+      }
+      .active {
+        background: $main !important;
+      }
+    }
+  }
+}
+.drop-zone__img {
+  border-radius: 32px;
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  image-rendering: optimizeQuality;
+}
+.photo-amin {
+  transition: transform 250ms;
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+@keyframes custom-progress-spinner-color {
+  100%,
+  0% {
+    stroke: $main;
+  }
+  50% {
+    stroke: $main-secondary;
+  }
+}
+
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+  animation: custom-progress-spinner-dash 1.5s ease-in-out infinite,
+    custom-progress-spinner-color 6s ease-in-out infinite;
+}

@@ -1,0 +1,34 @@
+﻿version: "3.7"
+
+services:
+
+  postgres:
+    image: "postgres"
+    restart: always
+    environment:
+      - POSTGRES_USER=ad_user
+      - POSTGRES_PASSWORD=135531
+      - POSTGRES_DB=Advertisment
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  
+  api:
+    build:
+      context: .
+      dockerfile: src/Advertisement.PublicApi/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ConnectionStrings__PostgresDb=Server=postgres;Database=Advertisement;Username=ad_user;Password=135531;Port=5432
+      - ASPNETCORE_URLS=https://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=135531
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/justfind.ru.com.pfx
+    depends_on:
+      - "postgres"
+    volumes:
+      - ./https:/https:ro
+
+volumes:
+  postgres_data:

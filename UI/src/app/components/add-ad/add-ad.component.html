@@ -1,0 +1,142 @@
+<div class="add-ad">
+  <div class="add-ad-back" (click)="backStep()">
+    <div class="add-ad-back__button">
+      <svg-icon class="add-ad-back__icon" src="/assets/icons/arrow-left.svg">
+      </svg-icon>
+    </div>
+    <div class="add-ad-back__text">Назад</div>
+  </div>
+  <div
+    [class.add-ad-anim_hidden-up]="addAdSteps != AddAdSteps.category"
+    class="add-ad-block"
+    [formGroup]="formGroupAddAd"
+  >
+    <h1 class="add-ad__title">Категория</h1>
+    <h3 class="add-ad__secondary-title">Выберете категорию</h3>
+    <div class="add-ad__tree-select">
+      <app-tree-select
+        (selectItem)="writeCategory($event)"
+        [items]="category"
+        childName="childCategories"
+        name="name"
+        id="id"
+      ></app-tree-select>
+    </div>
+    <app-validator
+      [isValid]="formGroupAddAd.controls.categoryId.invalid && buttonIsTouched"
+      text="Выберите категорию"
+    ></app-validator>
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.add-ad-anim_hidden-up]="addAdSteps > AddAdSteps.titleAndText"
+    [class.add-ad-anim_hidden-down]="addAdSteps < AddAdSteps.titleAndText"
+    class="add-ad-block"
+    [formGroup]="formGroupAddAd"
+  >
+    <h1 class="add-ad__title">Заголовок и описание</h1>
+    <h3 class="add-ad__secondary-title">Введите заголовок</h3>
+    <input
+      class="add-ad__input add-ad__input_title"
+      formControlName="name"
+      placeholder="Заголовок"
+    />
+    <app-validator
+      [isValid]="formGroupAddAd.controls.name.invalid && buttonIsTouched"
+      text="Заголовок обязателен и должен содержать менее 100 символов"
+    ></app-validator>
+
+    <textarea
+      type="text"
+      class="add-ad__input add-ad__input_text"
+      formControlName="text"
+      placeholder="Введите описание"
+    ></textarea>
+    <app-validator
+      [isValid]="formGroupAddAd.controls.text.invalid && buttonIsTouched"
+      text="Описание должно содержать менее 2000 символов"
+    ></app-validator>
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.add-ad-anim_hidden-up]="addAdSteps > AddAdSteps.photo"
+    [class.add-ad-anim_hidden-down]="addAdSteps < AddAdSteps.photo"
+    class="add-ad-block"
+  >
+    <h1 class="add-ad__title">Фото</h1>
+    <h3 class="add-ad__secondary-title">Выберите фото</h3>
+    <form [formGroup]="formGroupPhotos">
+      <ngx-dropzone
+        (change)="onSelect($event)"
+        accept="image/jpeg,image/jpg,image/png"
+        [maxFileSize]="5242880"
+      >
+        <ngx-dropzone-label
+          >Перенесите сюда фотографии, размером до 5 МБ не более 10
+          штук</ngx-dropzone-label
+        >
+        <ngx-dropzone-preview
+          *ngFor="let f of formGroupPhotos.controls.photos.value"
+          [removable]="true"
+          (removed)="onRemove(f)"
+        >
+          <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+      <app-validator
+        [isValid]="formGroupAddAd.controls.photos.valid && buttonIsTouched"
+        text="Вы можете добавить 10 фотографий, весом до 5Мб"
+      ></app-validator>
+    </form>
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.add-ad-anim_hidden-up]="addAdSteps > AddAdSteps.address"
+    [class.add-ad-anim_hidden-down]="addAdSteps < AddAdSteps.address"
+    class="add-ad-block"
+  >
+    <h1 class="add-ad__title">Адрес</h1>
+    <form [formGroup]="formGroupAddAd">
+      <h3 class="add-ad__secondary-title">Введите адрес</h3>
+
+      <ngx-dadata
+        class="dadata"
+        [placeholder]="formGroupAddAd.controls.locationText.value"
+        [config]="dadataConfig"
+        (selected)="onAddressSelected($event)"
+      ></ngx-dadata>
+      <app-validator
+        [isValid]="
+          formGroupAddAd.controls.locationText.invalid && buttonIsTouched
+        "
+        text="Адрес обязателен"
+      ></app-validator>
+    </form>
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.add-ad-anim_hidden-up]="addAdSteps > AddAdSteps.price"
+    [class.add-ad-anim_hidden-down]="addAdSteps < AddAdSteps.price"
+    class="add-ad-block"
+  >
+    <h1 class="add-ad__title">Цена</h1>
+    <form [formGroup]="formGroupAddAd">
+      <h3 class="add-ad__secondary-title">Введите цену</h3>
+      <input
+        type="number"
+        class="add-ad__input add-ad__input_title"
+        formControlName="price"
+        placeholder="Цена"
+      />
+      <app-validator
+        [isValid]="formGroupAddAd.controls.price.invalid && buttonIsTouched"
+        text=""
+      ></app-validator>
+    </form>
+    <div class="button button-primary" pRipple (click)="createAd()">Далее</div>
+  </div>
+</div>

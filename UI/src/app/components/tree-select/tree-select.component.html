@@ -1,0 +1,24 @@
+<div class="ts">
+  <div
+    class="ts__selectItem"
+    *ngIf="selectItemString"
+    (click)="selectItemString = null; selectItem.emit()"
+  >
+    {{ selectItemString }}
+  </div>
+  <div class="ts__items-container" *ngIf="!selectItemString">
+    <div *ngFor="let parent of parentItems; index as i">
+      <div class="ts__items">
+        <div
+          class="ts__item"
+          *ngFor="let item of parentItems[i]; index as j"
+          (mouseenter)="onMouseEnter(i, j)"
+          (click)="onSelectItem(i, j)"
+        >
+          {{ item[name] }}
+          <i *ngIf="item[childName]?.length" class="pi pi-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

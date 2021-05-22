@@ -1,0 +1,84 @@
+<div class="landing__container">
+    <div class="landing-search__container-outer">
+        <div class="landing-search__container-inner">
+            <div class="landing-search__title-container">
+                <h1 class="landing-search__title">Велкам</h1>
+                <ng-container *ngIf="!(authService.user | async); else userLogged">
+                    <span [routerLink]="['/', 'login']" class="landing-search__title-login">
+            Войти
+          </span>
+                    <svg-icon [routerLink]="['/', 'login']" class="landing-search__title-login-svg" src="/assets/icons/user.svg"></svg-icon>
+                </ng-container>
+                <ng-template #userLogged>
+                    <div class="landing-search__title-login-container">
+                        <span [routerLink]="['/']" class="landing-search__title-login" (click)="isLogoutOpened = !isLogoutOpened">
+              {{ (authService.user | async).firstName }}
+              {{ (authService.user | async).middleName }}
+            </span>
+                        <svg-icon *ngIf="!(authService.user | async).photo" class="landing-search__title-login-svg" src="/assets/icons/user.svg"></svg-icon>
+                        <img (click)="isLogoutOpened = !isLogoutOpened" class="landing-search__title-login-img" *ngIf="(authService.user | async).photo" src="data:image/jpeg;base64,{{
+                (authService.user | async).photo
+              }}" />
+                        <div class="landing-search__title-login-buttons-container" *ngIf="isLogoutOpened">
+                            <div [routerLink]="['/', 'profile', (authService.user | async).id]" (click)="isLogoutOpened = !isLogoutOpened" pRipple class="landing-search__title-login-button">
+                                Личный кабинет
+                            </div>
+                            <div (click)="authService.logout()" pRipple class="landing-search__title-login-button">
+                                Выйти
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <span class="landing-search__title-secondary">Доска объявлений JustFind</span
+      >
+      <div class="landing-search__input-container">
+        <input class="landing-search__input" placeholder="Поиск" />
+      </div>
+      <span *ngIf="!authService.currentUserAdmin()" class="landing-search__title-secondary"
+        >Хотите что-то продать?</span
+      >
+      <div class="landing-search__down-bar">
+        <a
+          pRipple 
+          *ngIf="!authService.currentUserAdmin()"
+          class="landing-search__down-bar_create"
+          [routerLink]="
+            (authService.user | async) ? ['/', 'add-ad'] : ['/', 'login']
+          "
+          >Опубликовать</a
+        >
+
+        <span *ngIf="!authService.currentUserAdmin()" class="landing-search__down-bar_or">или</span>
+            <div class="landing-search__down-bar_reg" routerLink="/register" *ngIf="!(authService.user | async)">
+                <span class="landing-search__down-bar_reg-text">зарегистрироваться</span
+          >
+          <svg-icon
+            class="landing-search__down-bar_reg-icon"
+            src="/assets/icons/plus.svg"
+          ></svg-icon>
+        </div>
+        <div
+          class="landing-search__down-bar_reg"
+          [routerLink]="['/', 'ads-page']"
+          *ngIf="authService.user | async"
+        >
+          <span class="landing-search__down-bar_reg-text"
+            >Просмотреть объявления</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="landing-ads__container">
+    <div class="landing-ads__btns">
+      <span class="landing-ads__btns-text"> Недавние объявления </span>
+                <span class="landing-ads__btns-all" [routerLink]="['/', 'ads-page']">
+        Все
+      </span>
+            </div>
+            <div class="landing__filter-list">
+                <app-filter-list></app-filter-list>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,61 @@
+<div>
+  <h3 class="comment__title" *ngIf="authService.user | async">Комментарии</h3>
+  <div
+    *ngIf="comments.length > 0"
+    class="comment__scrollbar"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500"
+    [scrollWindow]="false"
+    (scrolled)="onScrollDown()"
+  >
+    <ng-container *ngFor="let comment of comments">
+      <div class="comment">
+        <img
+          *ngIf="comment.photo"
+          class="comment__photo"
+          alt="фото"
+          src="data:image/jpeg;base64,{{ comment.photo }}"
+          [routerLink]="['/', 'profile', comment.authorId]"
+        />
+        <svg-icon
+          *ngIf="!comment.photo"
+          src="/assets/icons/user-ad-view.svg"
+        ></svg-icon>
+
+        <div class="comment__text-block">
+          <div
+            class="comment__name"
+            [routerLink]="['/', 'profile', comment.authorId]"
+          >
+            {{ comment.authorName }}
+          </div>
+          <div class="comment__text">{{ comment.text }}</div>
+          <div class="comment__date">{{ comment.updatedAt | timePassed }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="comment__add" *ngIf="authService.user | async">
+    <div class="comment__add-content">
+      <img
+        *ngIf="(authService.user | async).photo"
+        class="comment__photo"
+        alt="фото"
+        src="data:image/jpeg;base64,{{ (authService.user | async).photo }}"
+      />
+      <svg-icon
+        *ngIf="!(authService.user | async).photo"
+        src="/assets/icons/user-ad-view.svg"
+      ></svg-icon>
+      <textarea
+        [(ngModel)]="textCommentAdd"
+        class="comment__textarea"
+        placeholder="Комментарий..."
+      ></textarea>
+    </div>
+    <div pRipple class="comment__add-button" (click)="addComment()">
+      Комментировать
+    </div>
+  </div>
+</div>

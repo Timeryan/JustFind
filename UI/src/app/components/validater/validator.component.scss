@@ -1,0 +1,17 @@
+.validator {
+  margin: 10px 0;
+  display: block;
+  align-items: center;
+  width: 100%;
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    fill: black;
+    margin-right: 10px;
+  }
+  &__text {
+    color: #ff4a4a;
+  }
+}

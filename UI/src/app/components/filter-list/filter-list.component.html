@@ -1,0 +1,55 @@
+<div class="cards__container">
+  <div
+    class="cards__scrollbar"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500"
+    [scrollWindow]="false"
+    (scrolled)="onScrollDown()"
+  >
+    <ng-container *ngFor="let ad of ads">
+      <div
+        pRipple
+        class="card"
+        [class.card_theme_yellow]="
+          ad.status === Status.Rejected && isUserAdsOpen
+        "
+        [class.card_theme_gray]="ad.status === Status.Closed && isUserAdsOpen"
+        [routerLink]="['/', isUserAdsOpen ? 'profile-ad' : 'ads-page', ad.id]"
+      >
+        <img
+          *ngIf="ad.photo"
+          class="card__image"
+          src="data:image/jpeg;base64,{{ ad.photo }}"
+          alt="фото"
+        />
+        <div *ngIf="!ad.photo" class="card__no-image">Нет фото</div>
+        <div class="card__text-container">
+          <div class="card__title">
+            <span>{{ ad.name }}</span>
+            <svg-icon
+              *ngIf="
+                isUserAdsOpen && (authService.user | async)?.id == ad.ownerId
+              "
+              (click)="deleteAd($event, ad.id)"
+              class="card__svg-icon"
+              src="/assets/icons/cross.svg"
+            ></svg-icon>
+          </div>
+          <span class="card__text-secondary">{{ ad.locationText }}</span>
+          <span
+            class="card__time"
+            *ngIf="
+              ad.ownerId === (authService.user | async)?.id && isUserAdsOpen
+            "
+            >{{ ad.status | getStatus }}</span
+          >
+          <div class="card__price-time">
+            <span class="card__price">{{ ad.price | localePrice }}</span>
+            <span class="card__time">{{ ad.createdAt | timePassed }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="profile__container" [formGroup]="formGroupUpdate" *ngIf="isLoading">
+  <div class="profile__title">
+    <h2 class="profile__title-name">Пользователь</h2>
+  </div>
+  <div class="profile__info">
+    <div class="profile__photo-container">
+      <div class="profile__photo" *ngIf="!isUserAuthorize">
+        <div
+          *ngIf="user && user.photo"
+          style="background-image: url('data:image/png;base64, {{user.photo}}')"
+        ></div>
+
+        <div class="profile__photo-default" *ngIf="user && !user.photo">Нет фото</div>
+      </div>
+      <div
+        ngx-dropzone
+        [multiple]="false"
+        class="profile__photo-dropzone"
+        (change)="onAddUpdatePhoto($event)"
+        *ngIf="isUserAuthorize"
+      >
+        <ngx-dropzone-label>Перенесите сюда фотографию</ngx-dropzone-label>
+        <ngx-dropzone-preview *ngFor="let f of [user.photo]; let i = index">
+          <ngx-dropzone-label>
+            <img
+              *ngIf="user.photo"
+              class="drop-zone__img"
+              src="data:image/png;base64,{{ user.photo }}"
+            />
+            <span> Нажмите чтобы загрузить новое фото </span>
+          </ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </div>
+    </div>
+
+    <div class="profile__contacts-container">
+      <div class="profile__contacts-name-container">
+        <h2 class="profile__contacts-name" *ngIf="!isUserAuthorize">
+          {{ user.lastName }} {{ user.firstName }} {{ user.middleName }}
+        </h2>
+        <input
+          class="profile__contacts-name-input"
+          formControlName="lastName"
+          (blur)="updateUser()"
+          *ngIf="isUserAuthorize"
+        />
+        <input
+          class="profile__contacts-name-input"
+          formControlName="firstName"
+          (blur)="updateUser()"
+          *ngIf="isUserAuthorize"
+        />
+        <input
+          class="profile__contacts-name-input"
+          formControlName="middleName"
+          (blur)="updateUser()"
+          *ngIf="isUserAuthorize"
+        />
+      </div>
+      <div class="profile__contacts-email-container">
+        <span class="profile__contacts-email" *ngIf="!isUserAuthorize">
+          {{ user.email }}
+        </span>
+        <input
+          class="profile__contacts-email-input"
+          formControlName="email"
+          (blur)="updateUser()"
+          *ngIf="isUserAuthorize"
+        />
+      </div>
+      <div class="profile__contacts-number-container">
+        <span class="profile__contacts-number" *ngIf="!isUserAuthorize">
+          {{ user.phone }}
+        </span>
+        <input
+          class="profile__contacts-number-input"
+          formControlName="phone"
+          (blur)="updateUser()"
+          *ngIf="isUserAuthorize"
+        />
+      </div>
+    </div>
+  </div>
+</div>

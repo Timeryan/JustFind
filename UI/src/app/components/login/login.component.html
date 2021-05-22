@@ -1,0 +1,59 @@
+<div class="login">
+  <div class="login-form-block login-form-email" [formGroup]="formGroup">
+    <div class="login-form-back" routerLink="">
+      <div class="login-form-back__button">
+        <svg-icon
+          class="login-form-back__icon"
+          src="/assets/icons/arrow-left.svg"
+        >
+        </svg-icon>
+      </div>
+      <div class="login-form-back__text">Назад</div>
+    </div>
+    <h1 class="login-form__title">Email</h1>
+    <h3 class="login-form__secondary-title">Введите email в поле</h3>
+    <input
+      class="login-form__input"
+      formControlName="email"
+      placeholder="Введите email"
+    />
+    <app-validator
+      [isValid]="formGroup.controls.email.invalid && buttonIsTouched"
+      text="Введите корректный Email"
+    ></app-validator>
+    <h3 class="login-form__secondary-title">Введите пароль в поле</h3>
+    <input
+      type="password"
+      class="login-form__input"
+      formControlName="password"
+      placeholder="Введите пароль"
+    />
+    <app-validator [isValid]="false"></app-validator>
+    <div pRipple class="button button-primary" (click)="login()">Далее</div>
+    <div
+      class="button button-secondary"
+      pRipple
+      [routerLink]="['/', 'register']"
+    >
+      Зарегистрироваться
+    </div>
+
+    <div class="login-form__title-secondary">
+        Или войдите с помощью сервисов:
+    </div>
+
+    <div class="login-form__social">      
+    <a class="button login-form__vk social" href='{{getVkAuthLink()}}'>
+      <svg-icon src="/assets/icons/vk-login.svg"></svg-icon>
+    </a>
+
+    <a class="button login-form__fb social" (click)="signInWithFB()">
+      <svg-icon src="/assets/icons/facebook-logo.svg"></svg-icon>
+    </a>
+
+    <a class="button login-form__google social" (click)="signInWithGoogle()">
+      <svg-icon src="/assets/icons/google-plus-symbol.svg"></svg-icon>
+    </a>
+    </div>
+  </div>
+</div>

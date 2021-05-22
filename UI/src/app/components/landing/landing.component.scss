@@ -1,0 +1,194 @@
+@import "../../../assets/variables";
+.landing {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(
+        107.41deg,
+        #268eca 8.22%,
+        rgba(255, 255, 255, 0) 100%
+      ),
+      #2d9cdb;
+  }
+
+  &-search {
+    &__container {
+      &-outer {
+        width: calc(100vw - 600px);
+        display: flex;
+        transition: width 0.3s ease-in-out;
+        position: relative;
+      }
+
+      &-inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        transition: left 0.3s ease-in-out;
+      }
+    }
+
+    &__title {
+      color: #fff;
+      display: inline;
+      font-size: 56px;
+      font-weight: 700;
+      margin: 0;
+
+      &-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-login {
+        color: #fff;
+        margin: auto 16px auto auto;
+        font-weight: 300;
+        font-size: 22px;
+        padding-top: 8px;
+
+        &-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &-svg {
+          padding-top: 8px;
+          margin: auto 0;
+        }
+        &-img {
+          border-radius: 100px;
+          height: 60px;
+          width: 60px;
+          object-fit: cover;
+          image-rendering: optimizeQuality;
+        }
+        &-buttons-container {
+          position: absolute;
+          top: 60px;
+          border-radius: 16px;
+          background: #ffffff;
+          box-shadow: rgb(0 0 0 / 5%) 0px 0px 0px 1px;
+        }
+        &-button {
+          padding: 10px 40px;
+          font-weight: 500;
+          border-radius: 16px;
+          text-align: center;
+        }
+      }
+
+      &-secondary {
+        color: #fff;
+        margin: 8px 0;
+        font-weight: 300;
+        font-size: 22px;
+      }
+    }
+
+    &__input {
+      width: 552px;
+      height: 64px;
+      font-size: 24px;
+      background: none;
+      padding: 1rem 2rem;
+      border: none;
+      color: #fff;
+
+      &-container {
+        background-color: $main;
+        margin: 16px 0;
+        border-radius: 18px;
+      }
+
+      &::placeholder {
+        color: #aed4ea;
+      }
+    }
+
+    &__down-bar {
+      margin-top: 16px;
+      color: #fff;
+      font-weight: 300;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      font-size: 18px;
+
+      &_create {
+        background: $accent-color;
+        color: $text;
+        font-weight: 500;
+        border-radius: 16px;
+        padding: 1rem 4rem;
+        margin: auto 0;
+      }
+
+      &_or {
+        margin: auto 0;
+      }
+
+      &_reg {
+        font-weight: 500;
+        display: flex;
+        margin: auto 0;
+
+        &-icon {
+          margin: auto 0;
+          height: 32px;
+
+          ::ng-deep svg {
+            width: 32px;
+            height: 32px;
+          }
+        }
+
+        &-text {
+          margin: auto 4px auto auto;
+        }
+      }
+    }
+  }
+
+  &-ads {
+    &__container {
+      width: 800px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+      padding: 16px 32px;
+      background-color: #fff;
+      border-radius: 2rem 0 0 2rem;
+      transition: border-radius 0.3s ease-in-out;
+
+      &-opened {
+        border-radius: 0 2rem 2rem 0;
+      }
+    }
+
+    &__btns {
+      margin: 8px 0 22px;
+      font-weight: 500;
+      font-size: 18px;
+      width: 100%;
+      display: flex;
+
+      &-text {
+      }
+
+      &-all {
+        margin-left: auto;
+        color: $main;
+      }
+    }
+  }
+  &__filter-list {
+    height: 92%;
+  }
+}

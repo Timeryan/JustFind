@@ -1,0 +1,137 @@
+@import "../../../assets/variables";
+.profile {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 700px);
+    padding: 0 36px;
+  }
+  &__info {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &-name {
+      font-weight: 700;
+      font-size: 36px;
+      color: $main;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    &-container {
+      width: 50%;
+      height: 500px;
+    }
+
+    * {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      border-radius: 50px;
+    }
+
+    &-default {
+      border-radius: 50px;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 100;
+      font-size: 60px;
+      color: #726969;
+    }
+    &-dropzone {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__contacts {
+    &-container {
+      width: 50%;
+      height: 136px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px;
+    }
+
+    &-name {
+      font-weight: 500;
+      font-size: 24px;
+      color: $main;
+
+      &-input {
+        font-weight: 700;
+        font-size: 36px;
+        color: $main;
+        border: none;
+        border-radius: 15px;
+        box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      &-container {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &-number {
+      font-weight: 300;
+      font-size: 16px;
+      margin-bottom: 5px;
+
+      &-container {
+        display: flex;
+        flex-direction: column;
+      }
+      &-input {
+        font-weight: 300;
+        font-size: 18px;
+        border: none;
+        border-radius: 15px;
+        box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    }
+    &-email {
+      font-weight: 300;
+      font-size: 16px;
+      margin-bottom: 5px;
+      &-container {
+        display: flex;
+        flex-direction: column;
+      }
+      &-input {
+        font-weight: 300;
+        font-size: 18px;
+        border: none;
+        border-radius: 15px;
+        box-shadow: inset rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+.drop-zone__img {
+  border-radius: 32px;
+  height: 450px;
+  width: 550px;
+  object-fit: cover;
+  image-rendering: optimizeQuality;
+}

@@ -1,0 +1,122 @@
+<div class="cards__container">
+  <div
+    class="cards__scrollbar"
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500"
+    [scrollWindow]="false"
+    (scrolled)="onScrollDown()"
+  >
+    <ng-container *ngFor="let petition of petitions">
+      <div pRipple class="card" (click)="onPetitionClick(petition)">
+        <div class="card__text-container">
+          <div class="card__title">
+            <span>Обращение от пользователя {{ petition.name }}</span>
+          </div>
+          <span class="card__text-secondary">Email: {{ petition.email }}</span>
+          <span class="card__text-secondary"
+            >Текст жалобы: {{ petition.text }}</span
+          >
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <p-dialog
+    *ngIf="petition"
+    [formGroup]="formGroup"
+    header="Рассмотрение жалобы"
+    [(visible)]="showReviewPetition"
+    [modal]="true"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div
+      *ngIf="showReviewPetition && petition.ad"
+      pRipple
+      class="card"
+      (click)="redirectToAd(petition.ad.id)"
+    >
+      <img
+        *ngIf="petition.ad.photo"
+        class="card__image"
+        src="data:image/jpeg;base64,{{ petition.ad.photo }}"
+        alt="фото"
+      />
+      <div *ngIf="!petition.ad.photo" class="card__no-image">Нет фото</div>
+      <div class="card__text-container">
+        <div class="card__title">
+          <span>{{ petition.ad.name }}</span>
+        </div>
+        <span class="card__text-secondary">{{ petition.ad.locationText }}</span>
+        <span class="card__time">{{ petition.ad.status | getStatus }}</span>
+        <div class="card__price-time">
+          <span class="card__price">{{ petition.ad.price | localePrice }}</span>
+          <span class="card__time">{{
+            petition.ad.createdAt | timePassed
+          }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-text__text">Текст жалобы: {{ petition.text }}</div>
+    <br />
+    <div>
+      <form class="card__radiobutton">
+        <div class="p-field-radiobutton__item">
+          <p-radioButton
+            name="decisionRadio"
+            value="Ok"
+            label="Нет нарушений"
+            [(ngModel)]="decision"
+          ></p-radioButton>
+        </div>
+        <div class="p-field-radiobutton__item">
+          <p-radioButton
+            name="decisionRadio"
+            value="BanUser"
+            label="Бан всех объявлений пользователя"
+            [(ngModel)]="decision"
+          ></p-radioButton>
+        </div>
+        <div class="p-field-radiobutton__item">
+          <p-radioButton
+            name="decisionRadio"
+            value="BanAd"
+            label="Бан объявления"
+            [(ngModel)]="decision"
+          ></p-radioButton>
+        </div>
+      </form>
+    </div>
+    <textarea
+      class="add-petition__input add-petition__input_text"
+      autoResize="autoResize"
+      formControlName="decisionText"
+      placeholder="Текст результата проверки..."
+    ></textarea>
+    <app-validator
+      [isValid]="
+        (formGroup.controls.decisionText.touched ||
+          formGroup.controls.decisionText.dirty) &&
+        formGroup.controls.decisionText.invalid
+      "
+      text="Введите текст результата проверки"
+    ></app-validator>
+    <div class="petition-form__buttons">
+      <button
+        class="button button-secondary"
+        (click)="showReviewPetition = false"
+        styleClass="p-button-text"
+      >
+        Закрыть
+      </button>
+      <button
+        class="button button-primary"
+        (click)="sendDecision()"
+        styleClass="p-button-text"
+      >
+        Отправить решение
+      </button>
+    </div>
+  </p-dialog>
+</div>

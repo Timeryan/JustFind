@@ -1,0 +1,101 @@
+@import "../../../assets/variables";
+@import "../../../assets/dadata";
+
+.add-ad {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  &-back {
+    position: absolute;
+    left: 150px;
+    top: 70px;
+    display: flex;
+    align-items: center;
+
+    &__button {
+      height: 55px;
+      width: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $main-secondary;
+      border-radius: 50px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    &__text {
+      height: 50px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $main;
+      font-weight: 500;
+      font-size: 18px;
+    }
+  }
+
+  &__cascadeSelect {
+    margin-bottom: 10px;
+    width: 150px;
+  }
+
+  &__title {
+    color: $main;
+  }
+
+  &__input {
+    width: 552px;
+    height: 64px;
+    font-size: 24px;
+    background: $main-secondary;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 15px;
+    color: $main;
+
+    &_title {
+    }
+
+    &_text {
+      resize: none;
+      height: 300px;
+    }
+
+    &::placeholder {
+      color: #aed4ea;
+    }
+  }
+
+  &-block {
+    width: 552px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: top 0.2s ease-in-out;
+  }
+
+  &-anim_hidden-up {
+    top: -50%;
+  }
+
+  &-anim_hidden-down {
+    top: 150%;
+  }
+
+  &__tree-select {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

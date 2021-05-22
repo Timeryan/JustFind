@@ -1,0 +1,183 @@
+<div class="ad-page">
+  <div class="ad-page__list">
+    <ng-container *ngIf="!isProfileOpen; else isProfileOpenTemplate">
+      <div class="ad-page__name-filter">
+        <input
+          [(ngModel)]="filterData.searchName"
+          (blur)="updateFilterData()"
+          class="ad-page__name-filter-input"
+          placeholder="Поиск"
+        />
+        <div class="ad-page__name-filter-btn" pRipple>
+          <svg-icon
+            class="ad-page__svg-icon"
+            src="/assets/icons/search.svg"
+          ></svg-icon>
+        </div>
+      </div>
+      <div class="ad-page__btns">
+        <div
+          pRipple
+          class="ad-page__btn"
+          (click)="changeShowedFilter(Filter.isCategoryFilterOpen)"
+        >
+          <svg-icon
+            class="ad-page__svg-icon"
+            src="/assets/icons/category.svg"
+          ></svg-icon>
+          <div class="ad-page__text">{{ categoryFilterName }}</div>
+          <svg-icon
+            *ngIf="filterData.searchCategoryId"
+            (click)="onCategoryUnSelected($event)"
+            class="ad-page__svg-icon"
+            src="/assets/icons/cross.svg"
+          ></svg-icon>
+        </div>
+        <div
+          pRipple
+          class="ad-page__btn"
+          (click)="changeShowedFilter(Filter.isAddressFilterOpen)"
+        >
+          <svg-icon
+            class="ad-page__svg-icon"
+            src="/assets/icons/location.svg"
+          ></svg-icon>
+          <span class="ad-page__text"> {{ addressFilterName }} </span>
+          <svg-icon
+            *ngIf="filterData.searchLocationKladrId"
+            (click)="onLocationUnSelected($event)"
+            class="ad-page__svg-icon"
+            src="/assets/icons/cross.svg"
+          ></svg-icon>
+        </div>
+        <div
+          pRipple
+          class="ad-page__btn"
+          (click)="changeShowedFilter(Filter.isSortFilterOpen)"
+        >
+          <svg-icon
+            class="ad-page__svg-icon"
+            src="/assets/icons/swap.svg"
+          ></svg-icon>
+          <span class="ad-page__text"> {{ sortFilterName }} </span>
+          <svg-icon
+            *ngIf="filterData.sortParam"
+            (click)="onSortUnSelected($event)"
+            class="ad-page__svg-icon"
+            src="/assets/icons/cross.svg"
+          ></svg-icon>
+        </div>
+      </div>
+      <div
+        class="ad-page__filter"
+        *ngIf="filter === Filter.isCategoryFilterOpen"
+      >
+        <app-tree-select
+          (selectItem)="onCategorySelected($event)"
+          [items]="category"
+          childName="childCategories"
+          name="name"
+          id="id"
+        ></app-tree-select>
+      </div>
+      <div
+        class="ad-page__filter"
+        *ngIf="filter === Filter.isAddressFilterOpen"
+      >
+        <ngx-dadata
+          class="dadata"
+          [config]="dadataConfig"
+          (selected)="onAddressSelected($event)"
+        ></ngx-dadata>
+      </div>
+      <div class="ad-page__filter" *ngIf="filter === Filter.isSortFilterOpen">
+        <app-tree-select
+          (selectItem)="onSortSelected($event)"
+          [items]="sortType"
+          params="params"
+          name="name"
+        ></app-tree-select>
+      </div>
+    </ng-container>
+    <ng-template #isProfileOpenTemplate>
+      <div class="ad-page__title-my-ads">{{ contentLabel }}</div>
+      <div class="ad-page__title-back" (click)="onProfileUnSelected()">
+        < Назад к просмотру других объявлений
+      </div>
+    </ng-template>
+    <div
+      *ngIf="authService.currentUserAdmin() && isProfileOpen"
+      class="ad-page__filter-list"
+    >
+      <app-petitions-list></app-petitions-list>
+    </div>
+    <div
+      *ngIf="!(authService.currentUserAdmin() && isProfileOpen)"
+      class="ad-page__filter-list"
+    >
+      <app-filter-list [isUserAdsOpen]="isProfileOpen"></app-filter-list>
+    </div>
+  </div>
+  <div class="ad-page__header-view-container">
+    <div class="ad-page__header">
+      <div
+        class="ad-page__add-button"
+        *ngIf="!authService.currentUserAdmin()"
+        pRipple
+        [routerLink]="
+          (authService.user | async) ? ['/', 'add-ad'] : ['/', 'login']
+        "
+      >
+        + Разместить объявление
+      </div>
+      <ng-container *ngIf="!(authService.user | async); else userLogged">
+        <div pRipple class="ad-page__btn" [routerLink]="['/', 'login']">
+          <svg-icon
+            class="ad-page__svg-icon"
+            src="/assets/icons/profile.svg"
+          ></svg-icon>
+          <span class="ad-page__text"> Войти </span>
+        </div>
+      </ng-container>
+      <ng-template #userLogged>
+        <div
+          pRipple
+          class="ad-page__btn"
+          (click)="isLogoutOpened = !isLogoutOpened"
+        >
+          <span class="ad-page__text">
+            {{ (authService.user | async).firstName }}
+            {{ (authService.user | async).middleName }}
+          </span>
+          <svg-icon
+            *ngIf="!(authService.user | async).photo"
+            class="ad-page__svg-icon"
+            src="/assets/icons/profile.svg"
+          ></svg-icon>
+          <img
+            (click)="isLogoutOpened = !isLogoutOpened"
+            class="ad-page__img"
+            *ngIf="(authService.user | async).photo"
+            src="data:image/jpeg;base64,{{ (authService.user | async).photo }}"
+          />
+        </div>
+        <div class="ad-page__profile-buttons-container" *ngIf="isLogoutOpened">
+          <div
+            (click)="onProfileSelected()"
+            pRipple
+            class="ad-page__profile-button"
+          >
+            Личный кабинет
+          </div>
+          <div (click)="logout()" pRipple class="ad-page__profile-button">
+            Выйти
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="ad-page__view">
+      <app-profile *ngIf="isProfileOpen && !isAdOpen"></app-profile>
+      <app-ad-view [isProfileAdOpen]="isProfileOpen"></app-ad-view>
+    </div>
+  </div>
+</div>

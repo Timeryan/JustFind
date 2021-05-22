@@ -1,0 +1,59 @@
+<button pRipple class="button button-accent" (click)="showModalDialog()">
+  Пожаловаться на объявление
+</button>
+<p-dialog
+  [formGroup]="formGroup"
+  header="Жалоба"
+  [(visible)]="displayModal"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <input
+    class="petition-form__input form-control"
+    placeholder="Имя"
+    formControlName="name"
+  />
+  <app-validator
+    [isValid]="formGroup.controls.name.invalid && displayValidation"
+    text="Введите имя"
+  ></app-validator>
+  <input
+    class="petition-form__input"
+    placeholder="Email"
+    formControlName="email"
+  />
+  <app-validator
+    [isValid]="formGroup.controls.email.invalid && displayValidation"
+    text="Введите корректный Email"
+  ></app-validator>
+  <br />
+  <textarea
+    type="text"
+    class="add-petition__input add-petition__input_text"
+    autoResize="autoResize"
+    formControlName="text"
+    placeholder="Текст жалобы..."
+  ></textarea>
+  <app-validator
+    [isValid]="formGroup.controls.text.invalid && displayValidation"
+    text="Введите текст жалобы минимум 10 символов"
+  ></app-validator>
+  <div class="petition-form__buttons">
+    <button
+      class="button button-secondary"
+      (click)="displayModal = false"
+      styleClass="p-button-text"
+    >
+      Закрыть
+    </button>
+    <button
+      class="button button-primary"
+      (click)="sendPetition()"
+      styleClass="p-button-text"
+    >
+      Отправить
+    </button>
+  </div>
+</p-dialog>

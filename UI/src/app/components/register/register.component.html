@@ -1,0 +1,195 @@
+<div class="register">
+  <div
+    [class.register-form-anim_hidden-left]="
+      registerSteps != RegisterSteps.email
+    "
+    class="register-form-block"
+    [formGroup]="formGroupRegistration"
+  >
+    <div class="register-form-back" routerLink="">
+      <div class="register-form-back__button">
+        <svg-icon
+          class="register-form-back__icon"
+          src="/assets/icons/arrow-left.svg"
+        >
+        </svg-icon>
+      </div>
+      <div class="register-form-back__text">Назад</div>
+    </div>
+    <h1 class="register-form__title">Email</h1>
+    <h3 class="register-form__secondary-title">Введите Email в поле</h3>
+    <input
+      class="register-form__input"
+      formControlName="email"
+      placeholder="Введите Email"
+    />
+    <app-validator
+      [isValid]="
+        formGroupRegistration.controls.email.invalid && buttonIsTouched
+      "
+      text="Введите корректный Email"
+    ></app-validator>
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.register-form-anim_hidden-right]="
+      registerSteps < RegisterSteps.contactInfo
+    "
+    [class.register-form-anim_hidden-left]="
+      registerSteps > RegisterSteps.contactInfo
+    "
+    class="register-form-block"
+    [formGroup]="formGroupRegistration"
+  >
+    <div
+      class="register-form-back"
+      (click)="registerSteps = RegisterSteps.email"
+    >
+      <div class="register-form-back__button">
+        <svg-icon
+          class="register-form-back__icon"
+          src="/assets/icons/arrow-left.svg"
+        >
+        </svg-icon>
+      </div>
+      <div class="register-form-back__text">Назад</div>
+    </div>
+    <h1 class="register-form__title">Контактная информация</h1>
+    <h3 class="register-form__secondary-title">Введите фамилию в поле</h3>
+    <input
+      class="register-form__input"
+      formControlName="lastName"
+      placeholder="Введите фамилию"
+    />
+    <app-validator
+      [isValid]="
+        formGroupRegistration.controls.lastName.invalid && buttonIsTouched
+      "
+      text="Заполните поле фамилии, не мение 3 символов"
+    ></app-validator>
+    <h3 class="register-form__secondary-title">Введите имя в поле</h3>
+    <input
+      class="register-form__input"
+      formControlName="firstName"
+      placeholder="Введите имя"
+    />
+    <app-validator
+      [isValid]="
+        formGroupRegistration.controls.firstName.invalid && buttonIsTouched
+      "
+      text="Заполните поле Имени, не мение 3 символов"
+    ></app-validator>
+    <h3 class="register-form__secondary-title">Введите отчество в поле</h3>
+    <input
+      class="register-form__input"
+      formControlName="middleName"
+      placeholder="Введите отчество"
+    />
+
+    <h3 class="register-form__secondary-title">
+      Введите номер телефона в поле
+    </h3>
+    <input
+      class="register-form__input"
+      formControlName="phone"
+      placeholder="Введите номер телефона"
+    />
+    <app-validator
+      [isValid]="
+        formGroupRegistration.controls.phone.invalid && buttonIsTouched
+      "
+      text="Введите корректный номер телефона, Например +79111111111"
+    ></app-validator>
+
+    <div class="button button-primary" pRipple (click)="nextStep()">Далее</div>
+  </div>
+
+  <div
+    [class.register-form-anim_hidden-right]="
+      registerSteps < RegisterSteps.password
+    "
+    [class.register-form-anim_hidden-left]="
+      registerSteps > RegisterSteps.password
+    "
+    class="register-form-block"
+    [formGroup]="formGroupRegistration"
+  >
+    <div
+      class="register-form-back"
+      (click)="registerSteps = RegisterSteps.contactInfo"
+    >
+      <div class="register-form-back__button">
+        <svg-icon
+          class="register-form-back__icon"
+          src="/assets/icons/arrow-left.svg"
+        >
+        </svg-icon>
+      </div>
+      <div class="register-form-back__text">Назад</div>
+    </div>
+    <h1 class="register-form__title">Пароль</h1>
+    <h3 class="register-form__secondary-title">Введите пароль в поле</h3>
+    <input
+      type="password"
+      class="register-form__input"
+      formControlName="password"
+      placeholder="Введите пароль"
+    />
+    <app-validator
+      [isValid]="
+        formGroupRegistration.controls.password.invalid && buttonIsTouched
+      "
+      text="Введите пароль используя прописные и строчный латинские буквы, цифры, и символы @$!#^~%*?&,.<>. Пароль должен содержать от 8 символов"
+    ></app-validator>
+    <h3 class="register-form__secondary-title">Повторите пароль в поле</h3>
+    <input
+      type="password"
+      class="register-form__input"
+      formControlName="passwordConfirm"
+      placeholder="Повторите пароль"
+    />
+    <app-validator
+      [isValid]="
+        this.formGroupRegistration.controls.password.value !==
+          this.formGroupRegistration.controls.passwordConfirm.value &&
+        buttonIsTouched
+      "
+      text="Повторите пароль"
+    ></app-validator>
+    <div class="register-form__captcha">
+      <p-captcha
+        #captcha
+        siteKey="6Le5xa4aAAAAAFiGQG17uP1LG5NulCtFTd00_NUY"
+        (onResponse)="reCaptchaGetResponse($event)"
+      ></p-captcha>
+    </div>
+
+    <div class="button button-primary" pRipple (click)="register()">Далее</div>
+  </div>
+
+  <div
+    [class.register-form-anim_hidden-right]="
+      registerSteps < RegisterSteps.confirmEmail
+    "
+    class="register-form-block"
+    [formGroup]="formGroupRegistration"
+  >
+    <h1 class="register-form__title">Подтверждение почты</h1>
+    <h3 class="register-form__secondary-title">
+      Перейдите по ссылке в сообщении, которое было отправлено вам на почту
+    </h3>
+
+    <div class="button button-primary" pRipple routerLink="">
+      Вернуться на главную
+    </div>
+    <a
+      class="button button-secondary"
+      pRipple
+      [href]="navigateToEmail()"
+      target="_blank"
+    >
+      Перейти на почту
+    </a>
+  </div>
+</div>

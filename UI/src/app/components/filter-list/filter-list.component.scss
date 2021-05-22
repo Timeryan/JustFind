@@ -1,0 +1,94 @@
+@import "../../../assets/variables";
+.card {
+  &_theme {
+    &_yellow {
+      background: #fff4c4;
+    }
+    &_gray {
+      background: #eeeeee;
+    }
+  }
+  background: $main-secondary;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-radius: 32px;
+  color: $text;
+  margin-bottom: 1rem;
+  margin-right: 16px;
+  display: flex;
+  flex-direction: row;
+
+  &__image {
+    border-radius: 32px;
+    height: 110px;
+    width: 120px;
+    object-fit: cover;
+    image-rendering: optimizeQuality;
+  }
+  &__no-image {
+    border-radius: 32px;
+    height: 110px;
+    width: 160px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 100;
+    color: #726969;
+  }
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  &__svg-icon {
+    z-index: 10;
+  }
+
+  &__text {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      margin: 16px 20px;
+      width: 100%;
+    }
+
+    &-secondary {
+      font-weight: 400;
+      margin-top: 4px;
+      font-size: 14px;
+      color: $text-secondary;
+      line-height: 18px;
+    }
+  }
+
+  &__price-time {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+  }
+  &__price {
+    font-weight: 500;
+    color: $main;
+  }
+
+  &__time {
+    font-weight: 400;
+    font-size: 14px;
+    color: $text-secondary;
+  }
+}
+
+.cards {
+  &__container {
+    height: 100%;
+  }
+
+  &__scrollbar {
+    height: 100%;
+    overflow: auto;
+  }
+}

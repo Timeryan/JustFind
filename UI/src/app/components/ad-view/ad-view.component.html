@@ -1,0 +1,226 @@
+<div class="card">
+  <p-progressSpinner
+    [style]="{ width: '500px', height: '500px' }"
+    styleClass="custom-spinner"
+    strokeWidth="1"
+    fill="none"
+    animationDuration=".5s"
+    *ngIf="isLoading && ad"
+  ></p-progressSpinner>
+  <div
+    class="card__container"
+    *ngIf="!isLoading"
+    [formGroup]="formGroupUpdateAd"
+  >
+    <p-galleria
+      [value]="ad.photos"
+      [(visible)]="isGalleriaOpen"
+      [responsiveOptions]="responsiveOptions2"
+      [containerStyle]="{ width: '1000px', height: '850px' }"
+      [numVisible]="5"
+      [circular]="true"
+      [fullScreen]="true"
+      [showItemNavigators]="ad.photos.length > 1"
+      [baseZIndex]="100000"
+      [activeIndex]="activePhotoIndex"
+      [showThumbnails]="ad.photos.length > 1"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          class="card__galleria-max-photo"
+          [src]="'data:image/png;base64,' + item.kodBase64"
+          style="width: 100%; display: block"
+        />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="p-grid p-nogutter p-justify-center">
+          <img
+            class="card__galleria-min-photo"
+            [src]="'data:image/png;base64,' + item.kodBase64"
+            style="display: block"
+          />
+        </div>
+      </ng-template>
+    </p-galleria>
+    <div class="card-title-block">
+      <div class="card-title">
+        <div class="card-title__container">
+          <h2 class="card-title__name" *ngIf="!isEdit">{{ ad.name }}</h2>
+          <input
+            class="card-title__name-input"
+            formControlName="name"
+            (blur)="updateAd()"
+            *ngIf="isEdit"
+          />
+        </div>
+        <div class="card-title__container">
+          <h3 class="card-title__address" *ngIf="!isEdit">
+            {{ ad.locationText }}
+            {{ ad.status | getStatus }}
+          </h3>
+          <ngx-dadata
+            *ngIf="isEdit"
+            [placeholder]="ad.locationText"
+            class="dadata"
+            [config]="dadataConfig"
+            (selected)="changeLocation($event)"
+          ></ngx-dadata>
+        </div>
+      </div>
+      <div
+        class="card-title__admin-comment"
+        *ngIf="ad.moderationComment && isProfileAdOpen"
+      >
+        <p class="card-title__admin-comment-title">
+          Комментарий администратора:
+        </p>
+        {{ ad.moderationComment }}
+      </div>
+      <app-petition-form
+        *ngIf="!currentUserOwnerOfAd()"
+        [adId]="ad.id"
+      ></app-petition-form>
+    </div>
+    <div class="card-photo">
+      <div
+        class="photo-amin"
+        [class.card-photo__first]="ad.photos.length > 0"
+        [class.card-photo__first-only]="ad.photos.length === 1"
+        *ngIf="ad.photos.length > 0"
+        style="background-image: url('data:image/png;base64, {{
+          ad.photos[0].kodBase64
+        }}')"
+        (click)="imageClick(0)"
+      ></div>
+      <div class="card-photo__default" *ngIf="ad.photos.length === 0">
+        Нет фото
+      </div>
+      <div class="card-photo__second-block" *ngIf="ad.photos.length > 1">
+        <div class="card-photo__third-block" *ngIf="ad.photos.length > 2">
+          <div
+            class="photo-amin"
+            [class.card-photo__third]="ad.photos.length > 3"
+            [class.card-photo__third-only]="ad.photos.length === 3"
+            style="background-image: url('data:image/jpeg;base64, {{
+              ad.photos[2].kodBase64
+            }}')"
+            (click)="imageClick(2)"
+          ></div>
+          <div
+            class="card-photo__fourth photo-amin"
+            *ngIf="ad.photos.length > 3"
+            style="background-image: url('data:image/jpeg;base64, {{
+              ad.photos[3].kodBase64
+            }}')"
+            (click)="imageClick(3)"
+          ></div>
+        </div>
+        <div
+          class="photo-amin"
+          [class.card-photo__second]="ad.photos.length > 2"
+          [class.card-photo__second-only]="ad.photos.length === 2"
+          style="background-image: url('data:image/jpeg;base64, {{
+            ad.photos[1].kodBase64
+          }}' )"
+          (click)="imageClick(1)"
+        ></div>
+      </div>
+    </div>
+    <ngx-dropzone
+      class="card-photo__dropzone"
+      (change)="onAddUpdatePhoto($event)"
+      accept="image/jpeg,image/jpg,image/png"
+      [maxFileSize]="5242880"
+      *ngIf="isEdit"
+    >
+      <ngx-dropzone-label
+        >Перенесите сюда фотографии, размером до 5 МБ не более 10
+        штук</ngx-dropzone-label
+      >
+      <ngx-dropzone-preview
+        *ngFor="let f of ad.photos; let i = index"
+        [removable]="true"
+        (removed)="onDeleteUpdatePhoto(f.id)"
+      >
+        <ngx-dropzone-label>
+          <img
+            class="drop-zone__img"
+            src="data:image/png;base64,{{ ad.photos[i].kodBase64 }}"
+          />
+        </ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+
+    <div class="card-price-contacts__container">
+      <div>
+        <div class="card-price-contacts__price" *ngIf="!isEdit">
+          {{ ad.price | localePrice }}
+        </div>
+
+        <input
+          type="number"
+          class="card-price-contacts__price-input"
+          formControlName="price"
+          (blur)="updateAd()"
+          *ngIf="isEdit"
+        />
+      </div>
+      <div class="card-price-contacts-contacts">
+        <div
+          class="card-price-contacts-contacts__photo"
+          [routerLink]="['/', 'profile', ad.ownerId]"
+        >
+          <img
+            class="card-price-contacts-contacts__photo-img"
+            *ngIf="ad.ownerPhoto"
+            src="data:image/jpeg;base64,{{ ad.ownerPhoto }}"
+          />
+          <svg-icon
+            class="card-price-contacts-contacts__photo-svg"
+            *ngIf="!ad.ownerPhoto"
+            src="/assets/icons/user-ad-view.svg"
+          ></svg-icon>
+        </div>
+        <div class="card-price-contacts-contacts__contacts">
+          <span class="card-price-contacts-contacts__name">{{
+            ad.ownerName
+          }}</span>
+          <a
+            class="card-price-contacts-contacts__number"
+            *ngIf="authService.user | async"
+            href="tel:{{ ad.ownerNumber }}"
+            >{{ ad.ownerNumber }}</a
+          >
+          <span
+            class="card-price-contacts-contacts__number"
+            *ngIf="!(authService.user | async)"
+            >{{ "+79*********" }}</span
+          >
+        </div>
+        <a
+          class="card-price-contacts-contacts__call-button"
+          href="tel:{{ ad.ownerNumber }}"
+        >
+          <svg-icon
+            class="card-price-contacts-contacts__call-button-svg"
+            src="/assets/icons/telephone.svg"
+          ></svg-icon>
+        </a>
+      </div>
+    </div>
+    <div class="card-text">
+      <h3 class="card-text__text" *ngIf="!isEdit">
+        {{ ad.text }}
+      </h3>
+      <textarea
+        class="card-text__text-input"
+        formControlName="text"
+        (blur)="updateAd()"
+        *ngIf="isEdit"
+      ></textarea>
+    </div>
+    <div class="card__comments">
+      <app-comment [adId]="adId"></app-comment>
+    </div>
+  </div>
+</div>
